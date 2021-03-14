@@ -36,6 +36,17 @@ Route::group(
         Route::get('settings', 'MainController@settings');
         Route::get('payment-methods', 'MainController@paymentMethod');
 
+        // Resturant Routes
+        Route::group(
+            ['prefix' => 'restaurant', 'namespace' => 'Resturant'],
+            function () {
+                Route::post('register', 'AuthController@register');
+                Route::post('login', 'AuthController@login');
+                Route::post('reset-password', 'AuthController@resetPassword');
+                Route::post('new-password', 'AuthController@newPassword');
+            }
+        );
+        // Client Routes
         Route::group(
             ['prefix' => 'client', 'namespace' => 'Client'],
             function () {

@@ -56,4 +56,8 @@ class Resturant extends Model
         return $this->morphMany('App\Models\Token', 'tokenable');
     }
 
+    protected $hidden = [
+        'password',
+        'api_token',
+    ];
 }

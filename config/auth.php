@@ -41,9 +41,15 @@ return [
             'provider' => 'users',
         ],
 
-        'api' => [
+        'client' => [
             'driver' => 'token',
             'provider' => 'clients',
+            'hash' => false,
+        ],
+
+        'restaurant' => [
+            'driver' => 'token',
+            'provider' => 'resturants',
             'hash' => false,
         ],
     ],
@@ -74,6 +80,11 @@ return [
         'clients' => [
             'driver' => 'eloquent',
             'model' => App\Models\Client::class,
+        ],
+
+        'resturants' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Resturant::class,
         ],
 
         // 'users' => [
