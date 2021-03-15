@@ -31,7 +31,7 @@ Route::group(
         Route::post('reviews', 'MainController@reviews');
         Route::post('resturants', 'MainController@resturants');
         Route::post('resturant', 'MainController@aboutResturant');
-        Route::get('contact-us', 'MainController@contacts');
+        Route::post('contact-us', 'MainController@contactus');
         Route::get('offers', 'MainController@offers');
         Route::get('settings', 'MainController@settings');
         Route::get('payment-methods', 'MainController@paymentMethod');
@@ -44,6 +44,17 @@ Route::group(
                 Route::post('login', 'AuthController@login');
                 Route::post('reset-password', 'AuthController@resetPassword');
                 Route::post('new-password', 'AuthController@newPassword');
+                Route::group(
+                    ['middleware' => 'auth:restaurant'],
+                    function () {
+                        Route::get('products', 'MainController@showProducts');
+                        Route::post('add-product', 'MainController@createProducts');
+                        Route::post('edit-product', 'MainController@editProducts');
+                        Route::post('delete-product', 'MainController@deleteProducts');
+                        Route::post('profile', 'MainController@profile');
+                        Route::post('edit-profile', 'MainController@editProfile');
+                    }
+                );
             }
         );
         // Client Routes

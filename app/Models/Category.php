@@ -13,7 +13,7 @@ class Category extends Model
 
     public function resturants()
     {
-        return $this->belongsToMany('App\Models\Resturant');
+        return $this->hasMany('App\Models\Resturant');
     }
 
 }

@@ -22,17 +22,20 @@ class AuthController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->image;
             $image_new_name = time() . $image->getClientOriginalName();
-            $image->move('uploads/resturnats', $image_new_name);
-            $resturnat->image = 'uploads/resturnats/' . $image_new_name;
+            $image->move('uploads/resturants', $image_new_name);
+            $resturnat->image = 'uploads/resturants/' . $image_new_name;
         }
         $resturnat->api_token = Str::random(60);
         $resturnat->save();
+        $categories = $resturnat->categories()->attach($request->categories);
+        $categories = $resturnat->categories()->pluck('category_id')->toArray();
         return responseJson(
             1,
             'Register Success',
             [
                 'api_token' => $resturnat->api_token,
                 'resturnat' => $resturnat,
+                'categories' => $categories,
             ]
         );
     }

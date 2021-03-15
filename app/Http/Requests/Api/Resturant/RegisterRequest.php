@@ -35,6 +35,7 @@ class RegisterRequest extends FormRequest
             'whats_num' => 'required',
             'resturant_phone' => 'required',
             'neighbourhood_id' => 'required|exists:neighbourhood,id',
+            'categories' => 'required|array|exists:categories,id',
         ];
     }
 
@@ -56,6 +57,7 @@ class RegisterRequest extends FormRequest
             'status.required' => 'Please Choose Your Status',
             'whats_num.required' => 'Please Enter Your Whatsapp Number',
             'resturant_phone.required' => 'Please Enter The resturant number',
+            'categories.required' => 'please choose at least one category',
         ];
     }
 }
