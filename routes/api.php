@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Resturant\MainController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -47,12 +48,24 @@ Route::group(
                 Route::group(
                     ['middleware' => 'auth:restaurant'],
                     function () {
+                        Route::post('register-token', 'AuthController@registerToken');
+                        Route::post('remove-token', 'AuthController@removeToken');
                         Route::get('products', 'MainController@showProducts');
                         Route::post('add-product', 'MainController@createProducts');
                         Route::post('edit-product', 'MainController@editProducts');
                         Route::post('delete-product', 'MainController@deleteProducts');
                         Route::post('profile', 'MainController@profile');
                         Route::post('edit-profile', 'MainController@editProfile');
+                        Route::get('offers', 'MainController@offers');
+                        Route::post('add-offer', 'MainController@createOffer');
+                        Route::post('delete-offer', 'MainController@deleteOffers');
+                        Route::post('edit-offer', 'MainController@editOffer');
+                        Route::post('new-orders', 'MainController@newOrders');
+                        Route::post('current-orders', 'MainController@currentOrders');
+                        Route::post('past-orders', 'MainController@pastOrders');
+                        Route::post('accept-order', 'MainController@acceptOrders');
+                        Route::post('decline-order', 'MainController@declineOrders');
+                        Route::get('commission', 'MainController@settings');
                     }
                 );
             }
@@ -65,6 +78,13 @@ Route::group(
                 Route::post('login', 'AuthController@login');
                 Route::post('reset-password', 'AuthController@resetPassword');
                 Route::post('new-password', 'AuthController@newPassword');
+                Route::group(
+                    ['middleware' => 'auth:client'],
+                    function () {
+                        Route::post('register-token', 'AuthController@registerToken');
+                        Route::post('remove-token', 'AuthController@removeToken');
+                    }
+                );
             }
         );
     }

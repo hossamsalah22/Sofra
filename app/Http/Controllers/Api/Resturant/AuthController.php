@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Api\Resturant;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\RemoveTokenRequest;
 use App\Http\Requests\Api\Resturant\LoginRequest;
 use App\Http\Requests\Api\Resturant\NewPasswordRequest;
 use App\Http\Requests\Api\Resturant\RegisterRequest;
 use App\Http\Requests\Api\Resturant\ResetPasswordRequest;
+use App\Http\Requests\Api\TokenRequest;
 use App\Mail\ResetPassword;
 use App\Models\Resturant;
+use App\Models\Token;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Str;
@@ -98,5 +101,18 @@ class AuthController extends Controller
         } else {
             return responseJson(0, 'The code is invalid');
         }
+    }
+
+    public function registerToken(TokenRequest $request)
+    {
+        Token::where('token', $request->token)->delete();
+        $request->user()->tokens()->create($request->all());
+        return responseJson(1, 'registered successfully');
+    }
+
+    public function removeToken(RemoveTokenRequest $request)
+    {
+        Token::where('token', $request->token)->delete();
+        return responseJson(1, 'Deleted Successfully');
     }
 }

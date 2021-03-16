@@ -7,8 +7,11 @@ use App\Http\Requests\Api\Client\LoginRequest;
 use App\Http\Requests\Api\Client\NewPasswordRequest;
 use App\Http\Requests\Api\Client\RegisterRequest;
 use App\Http\Requests\Api\Client\ResetPasswordRequest;
+use App\Http\Requests\Api\RemoveTokenRequest;
+use App\Http\Requests\Api\TokenRequest;
 use App\Mail\ResetPassword;
 use App\Models\Client;
+use App\Models\Token;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -90,5 +93,18 @@ class AuthController extends Controller
         } else {
             return responseJson(0, 'The code is invalid');
         }
+    }
+
+    public function registerToken(TokenRequest $request)
+    {
+        Token::where('token', $request->token)->delete();
+        $request->user()->tokens()->create($request->all());
+        return responseJson(1, 'registered successfully');
+    }
+
+    public function removeToken(RemoveTokenRequest $request)
+    {
+        Token::where('token', $request->token)->delete();
+        return responseJson(1, 'Deleted Successfully');
     }
 }

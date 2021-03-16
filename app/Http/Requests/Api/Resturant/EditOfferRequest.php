@@ -5,7 +5,7 @@ namespace App\Http\Requests\Api\Resturant;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class EditProductRequest extends FormRequest
+class EditOfferRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -34,7 +34,7 @@ class EditProductRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.unique' => 'this product already exists',
+            'name.unique' => 'this offer already exists',
         ];
     }
 }

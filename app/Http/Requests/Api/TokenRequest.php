@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api\Resturant;
+namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class EditProductRequest extends FormRequest
+class TokenRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,16 +24,16 @@ class EditProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => Rule::unique('products', 'name')
-                ->ignore($this->user()->id),
-            'returant_id' => 'request()->user()->id'
+            'token' => 'required',
+            'type' => 'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'name.unique' => 'this product already exists',
+            'token.required' => 'token is required',
+            'type.required' => 'type is required',
         ];
     }
 }
