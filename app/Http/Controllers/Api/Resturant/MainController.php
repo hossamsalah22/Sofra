@@ -155,7 +155,8 @@ class MainController extends Controller
 
     public function pastOrders(Request $request)
     {
-        $orders = $request->user()->orders()->where('order_state', ['delivered', 'declined'])->get();
+        $orders = $request->user()->orders()
+            ->whereIn('order_state', ['delivered', 'declined', 'rejected'])->get();
         if ($orders) {
             return responseJson(1, 'Success', $orders);
         } else {

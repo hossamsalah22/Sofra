@@ -26,6 +26,7 @@ class RegisterRequest extends FormRequest
         return [
             'name' => 'required',
             'email' => 'required|email|unique:clients',
+            'image' => 'required',
             'phone' => 'required|unique:clients',
             'password' => 'required|confirmed',
             'neighbourhood_id' => 'required|exists:neighbourhood,id',
@@ -38,6 +39,7 @@ class RegisterRequest extends FormRequest
             'name.required' => 'Please Enter Your Name',
             'email.required' => 'Please Enter Your Email',
             'email.unique' => 'Sorry this Email Has An account',
+            'image.required' => 'Please Enter Your image',
             'phone.required' => 'Please Enter Your Phone',
             'phone.unique' => 'Sorry this Phone Has An account',
             'password.required' => 'Please Enter Your Password',

@@ -54,7 +54,7 @@ Route::group(
                         Route::post('add-product', 'MainController@createProducts');
                         Route::post('edit-product', 'MainController@editProducts');
                         Route::post('delete-product', 'MainController@deleteProducts');
-                        Route::post('profile', 'MainController@profile');
+                        Route::get('profile', 'MainController@profile');
                         Route::post('edit-profile', 'MainController@editProfile');
                         Route::get('offers', 'MainController@offers');
                         Route::post('add-offer', 'MainController@createOffer');
@@ -83,6 +83,15 @@ Route::group(
                     function () {
                         Route::post('register-token', 'AuthController@registerToken');
                         Route::post('remove-token', 'AuthController@removeToken');
+                        Route::get('profile', 'MainController@profile');
+                        Route::post('edit-profile', 'MainController@editProfile');
+                        Route::post('new-order', 'MainController@newOrder');
+                        Route::post('order-details', 'MainController@orderDetails');
+                        Route::get('current-orders', 'MainController@currentOrders');
+                        Route::get('past-orders', 'MainController@pastOrders');
+                        Route::post('delivered-orders', 'MainController@deliveredOrder');
+                        Route::post('rejected-orders', 'MainController@rejectOrder');
+                        Route::post('add-review', 'MainController@reviews');
                     }
                 );
             }

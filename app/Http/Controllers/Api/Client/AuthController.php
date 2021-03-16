@@ -23,6 +23,12 @@ class AuthController extends Controller
     {
         $request->merge(['password' => bcrypt($request->password)]);
         $client = Client::create($request->all());
+        if ($request->hasFile('image')) {
+            $image = $request->image;
+            $image_new_name = time() . $image->getClientOriginalName();
+            $image->move('upload/clients', $image_new_name);
+            $client->image = 'uploads/clients/' . $image_new_name;
+        }
         $client->api_token = Str::random(60);
         $client->save();
         return responseJson(

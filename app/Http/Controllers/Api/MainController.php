@@ -44,7 +44,7 @@ class MainController extends Controller
 
     public function products()
     {
-        $model = Product::all();
+        $model = Product::paginate(10);
         return responseJson(1, 'Success', $model);
     }
 
