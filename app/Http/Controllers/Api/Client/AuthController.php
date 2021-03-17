@@ -12,7 +12,6 @@ use App\Http\Requests\Api\TokenRequest;
 use App\Mail\ResetPassword;
 use App\Models\Client;
 use App\Models\Token;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Str;

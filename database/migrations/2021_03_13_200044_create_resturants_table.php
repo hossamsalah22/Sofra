@@ -12,7 +12,7 @@ class CreateResturantsTable extends Migration {
 			$table->timestamps();
 			$table->string('name');
 			$table->string('image');
-			$table->float('deliver');
+			$table->float('delivery');
 			$table->integer('min_charge');
 			$table->enum('status', array('open', 'closed'));
 			$table->string('email');

@@ -8,7 +8,6 @@ use App\Http\Requests\Api\Client\NewOrderRequest;
 use App\Http\Requests\Api\Client\ReviewRequest;
 use App\Models\Product;
 use App\Models\Resturant;
-use App\Models\Review;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 
@@ -46,78 +45,79 @@ class MainController extends Controller
         }
     }
 
-    // public function newOrder(NewOrderRequest $request)
-    // {
-    //     $resturant = Resturant::find($request->resturant_id);
-    //     if ($resturant->status == 'closed') {
-    //         return responseJson(0, 'Sorry restaurant is currentlly Closed');
-    //     }
+    public function newOrder(NewOrderRequest $request)
+    {
+        $resturant = Resturant::find($request->resturant_id);
+        if ($resturant->status == 'closed') {
+            return responseJson(0, 'Sorry restaurant is currentlly Closed');
+        }
 
-    //     $order = $request->user()->orders()->create(
-    //         [
-    //             'resturant_id' => $request->resturant_id,
-    //             'notes' => $request->notes,
-    //             'order_state' => 'pending',
-    //             'address' => $request->address,
-    //             'payment_method_id' => $request->payment_method_id,
-    //         ]
-    //     );
+        $order = $request->user()->orders()->create(
+            [
+                'resturant_id' => $request->resturant_id,
+                'notes' => $request->notes,
+                'order_state' => 'pending',
+                'address' => $request->address,
+                'payment_method_id' => $request->payment_method_id,
+                'delivery' => $resturant->delivery,
+            ]
+        );
 
-    //     $price = 0;
-    //     $delivery = $resturant->deliver;
-    //     foreach ($request->product as $i) {
-    //         $p = Product::find($i['product_id']);
-    //         $readyProduct = [
-    //             $i['product_id'] => [
-    //                 'quantity' => $i['quantity'],
-    //                 'price' => $p->price,
-    //                 'notes' => (isset($i['notes'])) ? $i['notes'] : ''
-    //             ]
-    //         ];
-    //         $order->products()->attach($readyProduct);
-    //         $price += ($p->price * $i['quantity']);
-    //     }
+        $price = 0;
+        $delivery = $resturant->delivery;
+        foreach ($request->products as $p) {
+            $product = Product::find($p['product_id']);
+            $readyProduct = [
+                $p['product_id'] => [
+                    'quantity' => $p['quantity'],
+                    'price' => $product->price,
+                    'notes' => (isset($p['notes'])) ? $p['notes'] : ''
+                ]
+            ];
+            $order->products()->attach($readyProduct);
+            $price += ($product->price * $p['quantity']);
+        }
 
-    //     if ($price >= $resturant->min_charge) {
-    //         $totalprice = $price + $delivery;
-    //         $settings = Setting::find(1);
-    //         $commission = $settings->commission * $price;
-    //         $net = $totalprice - $settings->commission;
-    //         $update = $order->update(
-    //             [
-    //                 'price' => $price,
-    //                 'deliver' => $delivery,
-    //                 'total_price' => $totalprice,
-    //                 'commission' => $commission,
-    //                 'net' => $net,
-    //             ]
-    //         );
-    //         $notification = $resturant->notifications()->create(
-    //             [
-    //                 'title' => 'You Have New Order',
-    //                 'content' => 'New Order From ' . $request->user()->name,
-    //                 'order_id' => $order->id
-    //             ]
-    //         );
-    //         $tokens = $resturant->tokens()->where('token', '!=', '')->pluck('token')->toArray();
-    //         if (count($tokens)) {
-    //             $title = $notification->title;
-    //             $body = $notification->content;
-    //             $data = [
-    //                 'order_id' => $order->id
-    //             ];
-    //             $send = notifyByFirebase($title, $body, $tokens, $data);
-    //             $data = [
-    //                 'order' => $order->fresh()->load('products')
-    //             ];
-    //             return responseJson(1, 'success', $data);
-    //         }
-    //     } else {
-    //         $order->items()->delete();
-    //         $order->delete();
-    //         return responseJson(0, 'Sorry Order Less Than' . $resturant->min_charge . 'Pound');
-    //     }
-    // }
+        if ($price >= $resturant->min_charge) {
+            $totalprice = $price + $delivery;
+            $settings = Setting::find(1);
+            $commission = $settings->commission * $price;
+            $net = $totalprice - $settings->commission;
+            $update = $order->update(
+                [
+                    'price' => $price,
+                    'delivery' => $delivery,
+                    'total_price' => $totalprice,
+                    'commission' => $commission,
+                    'net' => $net,
+                ]
+            );
+            $notification = $resturant->notifications()->create(
+                [
+                    'title' => 'You Have New Order',
+                    'content' => 'New Order From ' . $request->user()->name,
+                    'order_id' => $order->id,
+                    'is_read' => false,
+                ]
+            );
+            $tokens = $resturant->tokens()->where('token', '!=', '')->pluck('token')->toArray();
+            if (count($tokens)) {
+                $title = $notification->title;
+                $body = $notification->content;
+                $data = [
+                    'order_id' => $order->id
+                ];
+                $send = notifyByFirebase($title, $body, $tokens, $data);
+                $data = [
+                    'order' => $order->fresh()->load('products')
+                ];
+                return responseJson(1, 'success', $data);
+            }
+        } else {
+            $order->delete();
+            return responseJson(0, 'Sorry Order Less Than' . $resturant->min_charge . 'Pound');
+        }
+    }
 
     public function orderDetails(Request $request)
     {
@@ -178,7 +178,7 @@ class MainController extends Controller
                 'order' => $order->fresh()->load('products')
             ];
 
-            return responseJson(1, 'تم الطلب بنجاح', $data);
+            return responseJson(1, 'order delivered successfully', $data);
         }
         return responsejson(0, 'error');
     }

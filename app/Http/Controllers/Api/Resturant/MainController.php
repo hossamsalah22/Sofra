@@ -8,7 +8,6 @@ use App\Http\Requests\Api\Resturant\CreateProductRequest;
 use App\Http\Requests\Api\Resturant\EditOfferRequest;
 use App\Http\Requests\Api\Resturant\EditProductRequest;
 use App\Http\Requests\Api\Resturant\EditProfileRequest;
-use App\Models\Offer;
 use App\Models\Product;
 use App\Models\Setting;
 use Illuminate\Http\Request;
@@ -197,9 +196,9 @@ class MainController extends Controller
                 'order' => $order->fresh()->load('products')
             ];
 
-            return responseJson(1, 'تم الطلب بنجاح', ['data' => $data, 'send' => $send]);
+            return responseJson(1, 'order accepted successfully', ['data' => $data, 'send' => $send]);
         }
-        return responseJson(0, 'هذا الطلب لا يمكن رفضه');
+        return responseJson(0, 'this order can not be rejected');
     }
 
     public function declineOrders(Request $request)

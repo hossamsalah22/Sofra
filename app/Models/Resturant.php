@@ -9,7 +9,7 @@ class Resturant extends Model
 
     protected $table = 'resturants';
     public $timestamps = true;
-    protected $fillable = array('name', 'image', 'deliver', 'min_charge', 'status', 'email', 'phone', 'password', 'api_token', 'pin_code', 'neighbourhood_id', 'whats_num', 'resturant_phone');
+    protected $fillable = array('name', 'image', 'delivery', 'min_charge', 'status', 'email', 'phone', 'password', 'api_token', 'pin_code', 'neighbourhood_id', 'whats_num', 'resturant_phone');
 
     public function commissions()
     {

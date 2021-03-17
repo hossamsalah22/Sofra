@@ -92,12 +92,14 @@ class MainController extends Controller
         return responseJson(1, 'Success', $model);
     }
 
-    public function settings() {
+    public function settings()
+    {
         $settings = Setting::find(1);
         return responseJson(1, 'Success', ['about_us' => $settings->about_us]);
     }
 
-    public function paymentMethod() {
+    public function paymentMethod()
+    {
         $model = PaymentMethod::all();
         return responseJson(1, 'Success', $model);
     }

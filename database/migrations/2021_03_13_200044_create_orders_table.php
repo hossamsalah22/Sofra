@@ -17,9 +17,9 @@ class CreateOrdersTable extends Migration
 			$table->integer('client_id')->unsigned();
 			$table->text('notes')->nullable();
 			$table->string('address');
-			$table->float('price');
+			$table->float('price')->default('0');
 			$table->float('total_price')->default('0');
-			$table->float('deliver');
+			$table->float('delivery');
 			$table->float('commission')->default('0');
 			$table->text('special_order')->nullable();
 		});
