@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,14 +14,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/login', function () {
+    return view('auth.login');
 });
 
-Auth::routes();
+Auth::routes(['register' => false]);
+Route::group(
+    ['namespace' => 'App\Http\Controllers', 'middleware' => [
+        'auth:web',
+    ]],
+    function () {
+        Route::get('/', 'HomeController@index')->name('home');
+        Route::post('logout', 'Auth\LoginController@logout');
+        Route::resource('city', 'CitiesController');
+        Route::resource('neighbourhood', 'NeighbourhoodsController');
+    }
+);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -1,6 +1,8 @@
-@extends('layouts.app')
-
-@section('content')
+@extends('welcome')
+@section('title')
+Sofra DashBoard confirm password
+@endsection
+@section('auth')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">

@@ -36,11 +36,21 @@ return [
     */
 
     'guards' => [
+        // admin guard
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
+        // website guards
+        'clients' => [
+            'driver' => 'session',
+            'provider' => 'clients',
+        ],
+        'resturants' => [
+            'driver' => 'session',
+            'provider' => 'resturants',
+        ],
+        // Api Guards
         'client' => [
             'driver' => 'token',
             'provider' => 'clients',

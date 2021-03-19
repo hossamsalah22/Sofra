@@ -25,7 +25,7 @@ class AuthController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->image;
             $image_new_name = time() . $image->getClientOriginalName();
-            $image->move('upload/clients', $image_new_name);
+            $image->move('uploads/clients', $image_new_name);
             $client->image = 'uploads/clients/' . $image_new_name;
         }
         $client->api_token = Str::random(60);

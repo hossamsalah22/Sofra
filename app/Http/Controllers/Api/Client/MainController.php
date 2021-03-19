@@ -34,6 +34,7 @@ class MainController extends Controller
             if ($request->has('password')) {
                 $client->password = bcrypt($request->password);
             }
+            $client->save();
             return responseJson(
                 1,
                 'Updated Succesfully',

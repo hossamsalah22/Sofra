@@ -44,6 +44,7 @@ class MainController extends Controller
                 $image->move('uploads/products', $image_new_name);
                 $product->image = 'uploads/products/' . $image_new_name;
             }
+            $product->save();
             return responseJson(1, 'Updated', $product);
         } else {
             return responseJson(0, 'Product not found');
@@ -77,6 +78,7 @@ class MainController extends Controller
             if ($request->has('password')) {
                 $profile->password = bcrypt($request->password);
             }
+            $profile->save();
             $categories = $profile->categories()->sync($request->categories);
             return responseJson(
                 1,
@@ -243,7 +245,7 @@ class MainController extends Controller
     {
         $settings = Setting::find(1);
         $price = $request->user()->orders()->where('order_state', 'delivered')->sum('price');
-        $commission = $price * 0.1;
+        $commission = $request->user()->orders()->where('order_state', 'delivered')->sum('commission');
         $paid = $request->user()->commissions()->sum('paid');
         $remain = $commission - $paid;
         return responsejson(
