@@ -46,6 +46,15 @@
           <i class="fas fa-th-large"></i>
         </a>
       </li>
+      <li>
+        <div class="pull-right">
+          <a href="#" class="btn btn-default btn-flat" 
+            onclick="event.preventDefault();document.getElementById('logout-form').submit();">Sign out</a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+              {{ csrf_field() }}
+            </form>
+        </div>
+      </li>
     </ul>
   </nav>
   <!-- /.navbar -->
@@ -120,37 +129,48 @@
               </p>
             </a>
           </li>
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon far fa-plus-square"></i>
+          <li class="nav-item">
+            <a href="{{url(route('category.index'))}}" class="nav-link">
+              <i class="nav-icon fas fa-tasks"></i>
               <p>
-                Extras
-                <i class="fas fa-angle-left right"></i>
+                Categories
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{url(route('payment-method.index'))}}" class="nav-link">
+              <i class="nav-icon fas fa-tasks"></i>
+              <p>
+                Payment Methods
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Resaurants
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{route('offer.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>
-                    Login & Register v1
-                    <i class="fas fa-angle-left right"></i>
-                  </p>
+                  <p>Offers</p>
                 </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="../examples/login.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Login v1</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="../examples/register.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Register v1</p>
-                    </a>
-                  </li>
-                </ul>
+              </li>
+              <li class="nav-item">
+                <a href="../../index2.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Dashboard v2</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../../index3.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Dashboard v3</p>
+                </a>
               </li>
             </ul>
           </li>
@@ -181,9 +201,11 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
+    
 
     <!-- Main content -->
     <section class="content">
+      
         @yield('content')
     </section>
     <!-- /.content -->

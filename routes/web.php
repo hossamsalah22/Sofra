@@ -14,9 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/login', function () {
-    return view('auth.login');
-});
+Route::get(
+    'login',
+    function () {
+        return view('auth.login');
+    }
+);
 
 Auth::routes(['register' => false]);
 Route::group(
@@ -25,10 +28,11 @@ Route::group(
     ]],
     function () {
         Route::get('/', 'HomeController@index')->name('home');
-        Route::post('logout', 'Auth\LoginController@logout');
+        Route::post('logout', 'Auth\LoginController@logout')->name('logout');
         Route::resource('city', 'CitiesController');
         Route::resource('neighbourhood', 'NeighbourhoodsController');
+        Route::resource('category', 'CategoriesController');
+        Route::resource('payment-method', 'PaymentMethodsController');
+        Route::resource('offer', 'OffersController');
     }
 );
-
-

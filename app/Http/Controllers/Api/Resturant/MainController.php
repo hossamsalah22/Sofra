@@ -106,6 +106,7 @@ class MainController extends Controller
             $image->move('uploads/offers', $image_new_name);
             $offer->image = 'uploads/offers/' . $image_new_name;
         }
+        $offer->save();
 
         return responseJson(1, 'Offers Added Successfully', $offer);
     }
@@ -128,6 +129,7 @@ class MainController extends Controller
                 $image->move('uploads/offerss', $image_new_name);
                 $offers->image = 'uploads/offerss/' . $image_new_name;
             }
+            $offers->save();
             return responseJson(1, 'Updated', $offers);
         } else {
             return responseJson(0, 'offers not found');

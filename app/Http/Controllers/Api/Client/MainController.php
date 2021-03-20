@@ -115,6 +115,7 @@ class MainController extends Controller
                 return responseJson(1, 'success', $data);
             }
         } else {
+            $order->products->detach();
             $order->delete();
             return responseJson(0, 'Sorry Order Less Than' . $resturant->min_charge . 'Pound');
         }
