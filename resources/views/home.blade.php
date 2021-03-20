@@ -42,7 +42,7 @@
                             <div class="inner">
                                 <h3>{{ $restaurant->where('status', 'open')->count() }}</h3>
 
-                                <p>Available Resturants</p>
+                                <p>Opened Resturants</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-stats-bars"></i>

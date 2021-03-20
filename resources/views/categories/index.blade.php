@@ -24,7 +24,7 @@
                             @foreach ($model as $model)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td><a href="{{ url(route('category.show', $model->id)) }}">{{ $model->name }}</a></td>
+                                    <td>{{ $model->name }}</td>
                                     <td class="text-center">
                                         <a href="{{ url(route('category.edit', $model->id)) }}"
                                             class="btn btn-success btn-xs"><i class="fa fa-edit"></i></a>

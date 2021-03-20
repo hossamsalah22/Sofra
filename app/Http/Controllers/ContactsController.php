@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Offer;
+use App\Models\Contact;
 use Illuminate\Http\Request;
 
-class OffersController extends Controller
+class ContactsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,19 +14,20 @@ class OffersController extends Controller
      */
     public function index(Request $request)
     {
-        $model = Offer::where(
+        $model = Contact::where(
             function ($q) use ($request) {
                 if ($request->input('name')) {
                     $q->where('name', 'like', '%' . $request->name . '%');
-                    if (request()->input('resturant_id')) {
-                        $q->where('resturant_id', request()->resturant_id);
-                    }
-                } elseif (request()->input('resturant_id')) {
-                    $q->where('resturant_id', request()->resturant_id);
+                }
+                if ($request->input('email')) {
+                    $q->where('email', 'like', '%' . $request->email . '%');
+                }
+                if ($request->input('phone')) {
+                    $q->where('phone', 'like', '%' . $request->phone . '%');
                 }
             }
         )->latest()->get();
-        return view('offers.index', compact('model'));
+        return view('contactus.index', compact('model'));
     }
 
     /**
@@ -58,8 +59,8 @@ class OffersController extends Controller
      */
     public function show($id)
     {
-        $model = Offer::findOrFail($id);
-        return view('offers.show', compact('model'));
+        $model = Contact::findOrFail($id);
+        return view('contactus.show', compact('model'));
     }
 
     /**
@@ -93,9 +94,9 @@ class OffersController extends Controller
      */
     public function destroy($id)
     {
-        $model = Offer::findOrFail($id);
+        $model = Contact::findOrFail($id);
         $model->delete();
-        flash('Deleted')->success();
+        flash('deleted')->success();
         return back();
     }
 }

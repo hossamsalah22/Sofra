@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @inject('resturants', 'App\Models\Resturant')
 @section('page_title')
-    Offers
+    Restaurants Payments
 @endsection
 @section('content')
     <div>
@@ -11,17 +11,17 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    {!! Form::text('name', request()->input('name'), [
-    'placeholder' => 'Name',
+                    {!! Form::select('resturant_id', $resturants->pluck('name', 'id')->toArray(), request()->input('resturant_id'), [
+    'placeholder' => 'Resturant',
     'class' => 'form-control',
 ]) !!}
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="form-group">
-                    {!! Form::select('restaurant_id', $resturants->pluck('name', 'id')->toArray(), request()->input('restaurant_id'), [
-    'class' => 'select2 form-control',
-    'placeholder' => 'Restaurant',
+                    {!! Form::text('payment_date', request()->input('payment_date'), [
+    'placeholder' => 'Payment Date',
+    'class' => 'form-control',
 ]) !!}
                 </div>
             </div>
@@ -34,6 +34,9 @@
         {!! Form::close() !!}
     </div>
     <div class="card-body">
+        <a href="{{ route('resturants-payments.create') }}" class="btn btn-primary">
+            <i class="fa fa-plus"></i>
+            New Payment</a>
         @include('flash::message')
         @if (count($model))
             <div class="table-responsive">
@@ -42,8 +45,11 @@
                         <thead>
                             <tr>
                                 <th style="width: 10px">#</th>
-                                <th>Name</th>
-                                <th>Restaurant</th>
+                                <th>Resturant</th>
+                                <th>Paid</th>
+                                <th>Payment Date</th>
+                                <th>Notes</th>
+                                <th class="text-center">Edit</th>
                                 <th class="text-center">Delete</th>
                             </tr>
                         </thead>
@@ -51,11 +57,17 @@
                             @foreach ($model as $model)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td><a href="{{ url(route('offer.show', $model->id)) }}">{{ $model->name }}</a></td>
                                     <td>{{ $model->resturant->name }}</td>
+                                    <td>{{ $model->paid }}</td>
+                                    <td>{{ $model->payment_date }}</td>
+                                    <td>{{ $model->notes }}</td>
+                                    <td class="text-center">
+                                        <a href="{{ url(route('resturants-payments.edit', $model->id)) }}"
+                                            class="btn btn-success btn-xs"><i class="fa fa-edit"></i></a>
+                                    </td>
                                     <td class="text-center">
                                         {!! Form::open([
-    'action' => ['App\Http\Controllers\OffersController@destroy', $model->id],
+    'action' => ['App\Http\Controllers\ResturantPaymentsController@destroy', $model->id],
     'method' => 'delete',
 ]) !!}
                                         <button type="submit" class="btn btn-danger btn-xs"><i

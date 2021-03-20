@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Offer;
+use App\Http\Requests\ResturantPaymentsRequest;
+use App\Models\Commission;
 use Illuminate\Http\Request;
 
-class OffersController extends Controller
+class ResturantPaymentsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,19 +15,17 @@ class OffersController extends Controller
      */
     public function index(Request $request)
     {
-        $model = Offer::where(
+        $model = Commission::where(
             function ($q) use ($request) {
-                if ($request->input('name')) {
-                    $q->where('name', 'like', '%' . $request->name . '%');
-                    if (request()->input('resturant_id')) {
-                        $q->where('resturant_id', request()->resturant_id);
-                    }
-                } elseif (request()->input('resturant_id')) {
-                    $q->where('resturant_id', request()->resturant_id);
+                if ($request->input('resturant_id')) {
+                    $q->where('resturant_id', $request->resturant_id);
+                }
+                if ($request->input('payment_date')) {
+                    $q->where('payment_date', 'like', '%' . $request->payment_date . '%');
                 }
             }
         )->latest()->get();
-        return view('offers.index', compact('model'));
+        return view('resturantPayments.index', compact('model'));
     }
 
     /**
@@ -36,7 +35,7 @@ class OffersController extends Controller
      */
     public function create()
     {
-        //
+        return view('resturantPayments.create');
     }
 
     /**
@@ -45,9 +44,11 @@ class OffersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ResturantPaymentsRequest $request)
     {
-        //
+        $model = Commission::create($request->all());
+        flash('Success')->success();
+        return redirect(route('resturants-payments.index'));
     }
 
     /**
@@ -58,8 +59,7 @@ class OffersController extends Controller
      */
     public function show($id)
     {
-        $model = Offer::findOrFail($id);
-        return view('offers.show', compact('model'));
+        //
     }
 
     /**
@@ -70,7 +70,8 @@ class OffersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $model = Commission::findOrFail($id);
+        return view('resturantPayments.edit', compact('model'));
     }
 
     /**
@@ -80,9 +81,12 @@ class OffersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ResturantPaymentsRequest $request, $id)
     {
-        //
+        $model = Commission::findOrFail($id);
+        $model->update($request->all());
+        flash('updated')->success();
+        return redirect(route('resturants-payments.index'));
     }
 
     /**
@@ -93,7 +97,7 @@ class OffersController extends Controller
      */
     public function destroy($id)
     {
-        $model = Offer::findOrFail($id);
+        $model = Commission::findOrFail($id);
         $model->delete();
         flash('Deleted')->success();
         return back();

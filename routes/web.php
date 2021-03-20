@@ -32,7 +32,10 @@ Route::group(
         Route::resource('city', 'CitiesController');
         Route::resource('neighbourhood', 'NeighbourhoodsController');
         Route::resource('category', 'CategoriesController');
-        Route::resource('payment-method', 'PaymentMethodsController');
+        Route::resource('resturants-payments', 'ResturantPaymentsController');
         Route::resource('offer', 'OffersController');
+        Route::resource('contact-us', 'ContactsController');
+        Route::resource('setting', 'SettingsController');
+        Route::resource('payment-method', 'PaymentMethodsController');
     }
 );

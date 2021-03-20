@@ -1,7 +1,6 @@
 @extends('layouts.app')
-@inject('resturants', 'App\Models\Resturant')
 @section('page_title')
-    Offers
+    Contacts
 @endsection
 @section('content')
     <div>
@@ -17,11 +16,19 @@
 ]) !!}
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="form-group">
-                    {!! Form::select('restaurant_id', $resturants->pluck('name', 'id')->toArray(), request()->input('restaurant_id'), [
-    'class' => 'select2 form-control',
-    'placeholder' => 'Restaurant',
+                    {!! Form::text('email', request()->input('email'), [
+    'placeholder' => 'Email',
+    'class' => 'form-control',
+]) !!}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    {!! Form::text('phone', request()->input('phone'), [
+    'placeholder' => 'Phone',
+    'class' => 'form-control',
 ]) !!}
                 </div>
             </div>
@@ -43,7 +50,8 @@
                             <tr>
                                 <th style="width: 10px">#</th>
                                 <th>Name</th>
-                                <th>Restaurant</th>
+                                <th>Email</th>
+                                <th>Message Type</th>
                                 <th class="text-center">Delete</th>
                             </tr>
                         </thead>
@@ -51,11 +59,13 @@
                             @foreach ($model as $model)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td><a href="{{ url(route('offer.show', $model->id)) }}">{{ $model->name }}</a></td>
-                                    <td>{{ $model->resturant->name }}</td>
+                                    <td><a href="{{ url(route('contact-us.show', $model->id)) }}">{{ $model->name }}</a>
+                                    </td>
+                                    <td>{{ $model->email }}</td>
+                                    <td>{{ $model->type }}</td>
                                     <td class="text-center">
                                         {!! Form::open([
-    'action' => ['App\Http\Controllers\OffersController@destroy', $model->id],
+    'action' => ['App\Http\Controllers\ContactsController@destroy', $model->id],
     'method' => 'delete',
 ]) !!}
                                         <button type="submit" class="btn btn-danger btn-xs"><i

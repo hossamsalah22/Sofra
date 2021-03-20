@@ -139,7 +139,7 @@
           </li>
           <li class="nav-item">
             <a href="{{url(route('payment-method.index'))}}" class="nav-link">
-              <i class="nav-icon fas fa-tasks"></i>
+              <i class="nav-icon fas fa-cc-discover"></i>
               <p>
                 Payment Methods
               </p>
@@ -173,6 +173,22 @@
                 </a>
               </li>
             </ul>
+            <li class="nav-item">
+              <a href="{{url(route('contact-us.index'))}}" class="nav-link">
+                <i class="nav-icon fas fa-envelope"></i>
+                <p>
+                  Contact Us
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{url(route('setting.index'))}}" class="nav-link">
+                <i class="nav-icon fas fa-cog"></i>
+                <p>
+                  Setting
+                </p>
+              </a>
+            </li>
           </li>
         </ul>
       </nav>
