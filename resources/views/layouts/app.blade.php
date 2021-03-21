@@ -121,12 +121,27 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url(route('client.index')) }}" class="nav-link">
+                            <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-user"></i>
                                 <p>
                                     Clients
+                                    <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ url(route('client.index')) }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Clients</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('order.index') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Orders</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a href="{{ url(route('city.index')) }}" class="nav-link">

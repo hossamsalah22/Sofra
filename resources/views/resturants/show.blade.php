@@ -9,19 +9,16 @@
                 <div class="col-12">
                     <div class="callout callout-info">
                         <h5><i class="fas fa-info"></i> Restaurant Status:
-                            {{ $model->status }}</h5>
-                    </div>
-                    <div class="callout callout-info">
+                            {{ $model->status }}</h5><br>
                         <h5><i class="fas fa-info"></i> Restaurant Activation:
-                            @if($model->activated)
-                            Activate
-                            @else 
-                            De-Activate 
+                            @if ($model->activated)
+                                Activate
+                            @else
+                                De-Activate
                             @endif
                         </h5>
                     </div>
 
-                    
                     <!-- Main content -->
                     <div class="invoice p-3 mb-3">
                         <!-- title row -->
@@ -109,15 +106,15 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <h4>Orders Table:</h4>
-                                        @if(count($model->orders))
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Client Name</th>
-                                            <th>Address</th>
-                                            <th>Order Price</th>
-                                            <th>Order Notes</th>
-                                            <th>Order Status</th>
-                                        </tr>
+                                        @if (count($model->orders))
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Client Name</th>
+                                                <th>Address</th>
+                                                <th>Order Price</th>
+                                                <th>Order Notes</th>
+                                                <th>Order Status</th>
+                                            </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($model->orders as $order)
@@ -131,7 +128,7 @@
                                             </tr>
                                         @endforeach
                                     </tbody>
-                                    @else
+                                @else
                                     <h1>No Orders yet, Be the first one</h1>
                                     @endif
                                 </table>

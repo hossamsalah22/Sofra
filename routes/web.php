@@ -21,7 +21,7 @@ Route::get(
     }
 );
 
-Auth::routes(['register' => false]);
+Auth::routes();
 Route::group(
     ['namespace' => 'App\Http\Controllers', 'middleware' => [
         'auth:web',
@@ -43,5 +43,6 @@ Route::group(
         Route::resource('client', 'ClientsController');
         Route::get('client/{id}/activate', 'ClientsController@activate');
         Route::get('client/{id}/de-activate', 'ClientsController@deActivate');
+        Route::resource('order', 'OrdersController');
     }
 );
