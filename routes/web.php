@@ -37,5 +37,8 @@ Route::group(
         Route::resource('contact-us', 'ContactsController');
         Route::resource('setting', 'SettingsController');
         Route::resource('payment-method', 'PaymentMethodsController');
+        Route::resource('restaurant', 'ResturantsController');
+        Route::get('restaurant/{id}/activate', 'ResturantsController@activate');
+        Route::get('restaurant/{id}/de-activate', 'ResturantsController@deActivate');
     }
 );

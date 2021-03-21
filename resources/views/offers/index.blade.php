@@ -19,8 +19,8 @@
             </div>
             <div class="col-md-3">
                 <div class="form-group">
-                    {!! Form::select('restaurant_id', $resturants->pluck('name', 'id')->toArray(), request()->input('restaurant_id'), [
-    'class' => 'select2 form-control',
+                    {!! Form::select('resturant_id', $resturants->pluck('name', 'id')->toArray(), request()->input('resturant_id'), [
+    'class' => 'form-control',
     'placeholder' => 'Restaurant',
 ]) !!}
                 </div>

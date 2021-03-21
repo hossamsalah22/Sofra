@@ -18,6 +18,7 @@ class CreateClientsTable extends Migration {
 			$table->string('api_token', 60)->unique()->nullable();
 			$table->string('pin_code')->nullable();
 			$table->integer('neighbourhood_id')->unsigned();
+			$table->boolean('activated')->default(true);
 		});
 	}
 

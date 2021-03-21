@@ -23,7 +23,9 @@ class CreateResturantsTable extends Migration {
 			$table->integer('neighbourhood_id')->unsigned();
 			$table->string('whats_num');
 			$table->string('resturant_phone');
-		});
+			$table->boolean('activated')->default(true);
+		}
+	);
 	}
 
 	public function down()

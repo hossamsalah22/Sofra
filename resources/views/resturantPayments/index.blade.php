@@ -12,7 +12,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     {!! Form::select('resturant_id', $resturants->pluck('name', 'id')->toArray(), request()->input('resturant_id'), [
-    'placeholder' => 'Resturant',
+    'placeholder' => 'Restaurant',
     'class' => 'form-control',
 ]) !!}
                 </div>
