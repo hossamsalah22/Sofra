@@ -40,5 +40,8 @@ Route::group(
         Route::resource('restaurant', 'ResturantsController');
         Route::get('restaurant/{id}/activate', 'ResturantsController@activate');
         Route::get('restaurant/{id}/de-activate', 'ResturantsController@deActivate');
+        Route::resource('client', 'ClientsController');
+        Route::get('client/{id}/activate', 'ClientsController@activate');
+        Route::get('client/{id}/de-activate', 'ClientsController@deActivate');
     }
 );

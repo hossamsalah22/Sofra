@@ -2,7 +2,7 @@
 @inject('city', 'App\Models\City')
 @inject('neighbourhoods', 'App\Models\Neighbourhood')
 @section('page_title')
-    Restaurants Payments
+    Clients
 @endsection
 @section('content')
     <div>
@@ -44,7 +44,7 @@
             </div>
             <div class="col-md-1">
                 <div class="form-group">
-                    <button class="btn btn-danger btn-block" type="submit"><a href="{{url(route('restaurant.index'))}}" style="color: white">Reset</a></button>
+                    <button class="btn btn-danger btn-block" type="submit"><a href="{{url(route('client.index'))}}" style="color: white">Reset</a></button>
                 </div>
             </div>
         </div>
@@ -60,7 +60,10 @@
                             <tr>
                                 <th style="width: 10px">#</th>
                                 <th>Name</th>
-                                <th>Location</th>
+                                <th>E-mail</th>
+                                <th>Phone</th>
+                                <th>Image</th>
+                                <th>Address</th>
                                 <th>Activation</th>
                                 <th class="text-center">Delete</th>
                             </tr>
@@ -69,18 +72,21 @@
                             @foreach ($model as $model)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td><a href="{{url(route('restaurant.show', $model->id))}}">{{ $model->name }}</a></td>
+                                    <td>{{ $model->name }}</td>
+                                    <td>{{ $model->email }}</td>
+                                    <td>{{ $model->phone }}</td>
+                                    <td><img src="{{asset($model->image)}}" alt="{{$model->name}} image" width="50"></td>
                                     <td>{{$model->neighbourhood->city->name}}, {{$model->neighbourhood->name}}</td>
                                     <td class="text-center">
                                         @if($model->activated)
-                                            <a href="restaurant/{{$model->id}}/de-activate" class="btn btn-xs btn-danger"><i class="fa fa-close"></i> De-Activate</a>
+                                            <a href="client/{{$model->id}}/de-activate" class="btn btn-xs btn-danger"><i class="fa fa-close"></i> De-Activate</a>
                                         @else
-                                            <a href="restaurant/{{$model->id}}/activate" class="btn btn-xs btn-success"><i class="fa fa-check"></i> Activate</a>
+                                            <a href="client/{{$model->id}}/activate" class="btn btn-xs btn-success"><i class="fa fa-check"></i> Activate</a>
                                         @endif
                                   </td>
                                     <td class="text-center">
                                         {!! Form::open([
-    'action' => ['App\Http\Controllers\ResturantsController@destroy', $model->id],
+    'action' => ['App\Http\Controllers\ClientsController@destroy', $model->id],
     'method' => 'delete',
 ]) !!}
                                         <button type="submit" class="btn btn-danger btn-xs"><i

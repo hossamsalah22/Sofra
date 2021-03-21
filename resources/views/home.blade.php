@@ -2,6 +2,7 @@
 @inject('client', 'App\Models\Client')
 @inject('restaurant', 'App\Models\Resturant')
 @inject('offer', 'App\Models\Offer')
+@inject('order', 'App\Models\Order')
 @section('content')
     <!-- Default box -->
     <div class="card">
@@ -40,29 +41,14 @@
                         <!-- small box -->
                         <div class="small-box bg-green">
                             <div class="inner">
-                                <h3>{{ $restaurant->where('status', 'open')->count() }}</h3>
+                                <h3>{{ $restaurant->count() }}</h3>
 
-                                <p>Opened Resturants</p>
+                                <p>Resturants</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-stats-bars"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
-                    <!-- ./col -->
-                    <div class="col-lg-3 col-xs-6">
-                        <!-- small box -->
-                        <div class="small-box bg-yellow">
-                            <div class="inner">
-                                <h3>{{ $restaurant->count() }}</h3>
-
-                                <p>Resaurants</p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-person-add"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                            <a href="{{url(route('restaurant.index'))}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
