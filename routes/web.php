@@ -25,6 +25,7 @@ Auth::routes();
 Route::group(
     ['namespace' => 'App\Http\Controllers', 'middleware' => [
         'auth:web',
+        'App\Http\Middleware\AuthCheckPermission'
     ]],
     function () {
         Route::get('/', 'HomeController@index')->name('home');
@@ -44,5 +45,6 @@ Route::group(
         Route::get('client/{id}/activate', 'ClientsController@activate');
         Route::get('client/{id}/de-activate', 'ClientsController@deActivate');
         Route::resource('order', 'OrdersController');
+        Route::get('order/{id}/print', 'OrdersController@printOrder');
     }
 );

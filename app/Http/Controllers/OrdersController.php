@@ -93,4 +93,15 @@ class OrdersController extends Controller
     {
         //
     }
+    /**
+     * Print the specified Order
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function printOrder($id)
+    {
+        $model = Order::findOrFail($id);
+        return view('orders.print', compact('model'));
+    }
 }
