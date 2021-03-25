@@ -61,7 +61,9 @@
                                 <th style="width: 10px">#</th>
                                 <th>Name</th>
                                 <th>Location</th>
+                                @if(auth()->user()->hasRole('admin'))
                                 <th>Activation</th>
+                                @endif
                                 <th class="text-center">Delete</th>
                             </tr>
                         </thead>
@@ -71,6 +73,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td><a href="{{url(route('restaurant.show', $model->id))}}">{{ $model->name }}</a></td>
                                     <td>{{$model->neighbourhood->city->name}}, {{$model->neighbourhood->name}}</td>
+                                    @if(auth()->user()->hasRole('admin'))
                                     <td class="text-center">
                                         @if($model->activated)
                                             <a href="restaurant/{{$model->id}}/de-activate" class="btn btn-xs btn-danger"><i class="fa fa-close"></i> De-Activate</a>
@@ -78,6 +81,7 @@
                                             <a href="restaurant/{{$model->id}}/activate" class="btn btn-xs btn-success"><i class="fa fa-check"></i> Activate</a>
                                         @endif
                                   </td>
+                                  @endif
                                     <td class="text-center">
                                         {!! Form::open([
     'action' => ['App\Http\Controllers\ResturantsController@destroy', $model->id],

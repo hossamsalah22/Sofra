@@ -64,7 +64,9 @@
                                 <th>Phone</th>
                                 <th>Image</th>
                                 <th>Address</th>
+                                @if(auth()->user()->hasRole('admin'))
                                 <th>Activation</th>
+                                @endif
                                 <th class="text-center">Delete</th>
                             </tr>
                         </thead>
@@ -77,6 +79,7 @@
                                     <td>{{ $model->phone }}</td>
                                     <td><img src="{{asset($model->image)}}" alt="{{$model->name}} image" width="50"></td>
                                     <td>{{$model->neighbourhood->city->name}}, {{$model->neighbourhood->name}}</td>
+                                    @if(auth()->user()->hasRole('admin'))
                                     <td class="text-center">
                                         @if($model->activated)
                                             <a href="client/{{$model->id}}/de-activate" class="btn btn-xs btn-danger"><i class="fa fa-close"></i> De-Activate</a>
@@ -84,6 +87,7 @@
                                             <a href="client/{{$model->id}}/activate" class="btn btn-xs btn-success"><i class="fa fa-check"></i> Activate</a>
                                         @endif
                                   </td>
+                                  @endif
                                     <td class="text-center">
                                         {!! Form::open([
     'action' => ['App\Http\Controllers\ClientsController@destroy', $model->id],

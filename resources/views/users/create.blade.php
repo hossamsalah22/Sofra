@@ -1,7 +1,7 @@
 @extends('layouts.app')
-@inject('model', 'App\Models\Commission')
+@inject('model', 'App\Models\User')
 @section('page_title')
-    Create Payment
+    Create User
 @endsection
 @section('content')
 
@@ -9,14 +9,14 @@
     <section class="content">
         <div class="card-body">
             {!! Form::model($model, [
-    'action' => 'App\Http\Controllers\ResturantPaymentsController@store',
+    'action' => 'App\Http\Controllers\UsersController@store',
 ]) !!}
             <div class="form-group">
                 @include('partials.validation_error')
-                @include('resturantPayments.form')
+                @include('users.form')
 
                 <div class="form-group">
-                    <button class="btn btn-primary" type="submit">Add Payments</button>
+                    <button class="btn btn-primary" type="submit">Add User</button>
                 </div>
 
                 {!! Form::close() !!}

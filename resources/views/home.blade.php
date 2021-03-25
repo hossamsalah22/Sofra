@@ -81,20 +81,20 @@
                         <thead>
                             <tr>
                                 <th>Order ID</th>
+                                <th>Client</th>
                                 <th>Order Products</th>
-                                <th>Price</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($orders as $order)
                             <tr>
                                 <td>{{$order->id}}</td>
+                                <td>{{$order->client->name}}</td>
                                 <td>
                                     @foreach($order->products as $products)
                                     {{$products->name}},
                                     @endforeach
                                 </td>
-                                <td>{{$order->total_price}}</td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -104,7 +104,7 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer clearfix">
-                <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a>
+                <a href="{{url(route('order.index'))}}" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a>
             </div>
             <!-- /.box-footer -->
         </div>

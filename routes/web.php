@@ -21,11 +21,11 @@ Route::get(
     }
 );
 
-Auth::routes();
+Auth::routes(['register' => false]);
 Route::group(
     ['namespace' => 'App\Http\Controllers', 'middleware' => [
         'auth:web',
-        'App\Http\Middleware\AuthCheckPermission'
+        'App\Http\Middleware\AutoCheckPermission'
     ]],
     function () {
         Route::get('/', 'HomeController@index')->name('home');
@@ -46,5 +46,8 @@ Route::group(
         Route::get('client/{id}/de-activate', 'ClientsController@deActivate');
         Route::resource('order', 'OrdersController');
         Route::get('order/{id}/print', 'OrdersController@printOrder');
+        Route::resource('user', 'UsersController');
+        Route::resource('role', 'RolesController');
+        Route::resource('change-password', 'ChangePasswordController');
     }
 );

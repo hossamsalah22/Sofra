@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 
-class AuthCheckPermission
+class AutoCheckPermission
 {
     /**
      * Handle an incoming request.

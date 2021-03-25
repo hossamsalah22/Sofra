@@ -92,6 +92,22 @@
                         <!-- Add icons to the links using the .nav-icon class
               with font-awesome or any other icon font library -->
                         <li class="nav-item">
+                            <a href="{{ url(route('user.index')) }}" class="nav-link">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>
+                                    Users
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url(route('role.index')) }}" class="nav-link">
+                                <i class="nav-icon fas fa-city"></i>
+                                <p>
+                                    Roles
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-coffee"></i>
                                 <p>
@@ -191,6 +207,14 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ url(route('change-password.index')) }}" class="nav-link">
+                                <i class="nav-icon fas fa-cog"></i>
+                                <p>
+                                    Change Password
+                                </p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -253,6 +277,7 @@
     <script src="{{ asset('Admin/dist/js/demo.js') }}"></script>
 
     @stack('scripts')
+    @stack('roles')
 </body>
 
 </html>
